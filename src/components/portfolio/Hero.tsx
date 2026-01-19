@@ -1,7 +1,15 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Download, Mail, Github, Linkedin } from "lucide-react";
+import { ArrowDown, Download, Mail, Github, Linkedin, Instagram, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ParticleBackground } from "./ParticleBackground";
+
+const socialLinks = [
+  { icon: Github, href: "https://github.com/codersandip", label: "GitHub" },
+  { icon: Linkedin, href: "https://in.linkedin.com/in/sandip-tawhare-coder", label: "LinkedIn" },
+  { icon: Instagram, href: "https://www.instagram.com/sandip.tawhare", label: "Instagram" },
+  { icon: Twitter, href: "https://x.com/sandiptawhare11", label: "Twitter" },
+  { icon: Mail, href: "mailto:sandiptawhare18081998@gmail.com", label: "Email" },
+];
 
 export const Hero = () => {
   const scrollToProjects = () => {
@@ -98,7 +106,7 @@ export const Hero = () => {
               className="text-hero-foreground/70 hover:text-hero-foreground hover:bg-primary/10 px-8 py-6 text-base"
               asChild
             >
-              <a href="#" onClick={(e) => e.preventDefault()}>
+              <a href="/resume.pdf" download="Sandip_Tawhare_Resume.pdf">
                 <Download className="mr-2 h-4 w-4" />
                 Resume
               </a>
@@ -112,26 +120,20 @@ export const Hero = () => {
             transition={{ duration: 0.5, delay: 0.5 }}
             className="flex items-center justify-center gap-4"
           >
-            <motion.a
-              href="https://github.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-full bg-hero-foreground/5 hover:bg-primary/20 text-hero-foreground/70 hover:text-primary transition-all"
-              whileHover={{ scale: 1.1, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Github className="h-5 w-5" />
-            </motion.a>
-            <motion.a
-              href="https://linkedin.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-full bg-hero-foreground/5 hover:bg-primary/20 text-hero-foreground/70 hover:text-primary transition-all"
-              whileHover={{ scale: 1.1, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Linkedin className="h-5 w-5" />
-            </motion.a>
+            {socialLinks.map((link) => (
+              <motion.a
+                key={link.label}
+                href={link.href}
+                target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+                rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+                className="p-3 rounded-full bg-hero-foreground/5 hover:bg-primary/20 text-hero-foreground/70 hover:text-primary transition-all"
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label={link.label}
+              >
+                <link.icon className="h-5 w-5" />
+              </motion.a>
+            ))}
           </motion.div>
         </div>
 

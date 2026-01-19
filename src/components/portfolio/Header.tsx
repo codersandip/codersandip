@@ -1,8 +1,15 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Download, Github, Linkedin, Instagram, Twitter, Mail, Phone } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "@/components/ui/button";
+
+const socialLinks = [
+  { icon: Github, href: "https://github.com/codersandip", label: "GitHub" },
+  { icon: Linkedin, href: "https://in.linkedin.com/in/sandip-tawhare-coder", label: "LinkedIn" },
+  { icon: Instagram, href: "https://www.instagram.com/sandip.tawhare", label: "Instagram" },
+  { icon: Twitter, href: "https://x.com/sandiptawhare11", label: "Twitter" },
+];
 
 const navItems = [
   { name: "About", href: "#about" },
@@ -65,14 +72,16 @@ export const Header = () => {
             {/* Logo */}
             <motion.a
               href="#"
-              className="text-xl md:text-2xl font-bold gradient-text"
+              className="text-lg md:text-xl font-bold"
               whileHover={{ scale: 1.02 }}
               onClick={(e) => {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
             >
-              Sandip<span className="text-foreground">.</span>
+              <span className="gradient-text">Sandip</span>
+              <span className="text-foreground"> B. </span>
+              <span className="gradient-text">Tawhare</span>
             </motion.a>
 
             {/* Desktop Navigation */}
@@ -102,10 +111,42 @@ export const Header = () => {
             </div>
 
             {/* Right side */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              {/* Social Links - Desktop only */}
+              <div className="hidden lg:flex items-center gap-1">
+                {socialLinks.map((link) => (
+                  <motion.a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    aria-label={link.label}
+                  >
+                    <link.icon className="h-4 w-4" />
+                  </motion.a>
+                ))}
+              </div>
+              
               <ThemeToggle />
+              
+              <Button
+                asChild
+                variant="outline"
+                size="sm"
+                className="hidden md:inline-flex border-primary/50 text-foreground hover:bg-primary/10"
+              >
+                <a href="/resume.pdf" download="Sandip_Tawhare_Resume.pdf">
+                  <Download className="mr-2 h-4 w-4" />
+                  Resume
+                </a>
+              </Button>
+              
               <Button
                 onClick={() => scrollToSection("#contact")}
+                size="sm"
                 className="hidden md:inline-flex gradient-bg text-primary-foreground hover:opacity-90"
               >
                 Hire Me
@@ -155,12 +196,42 @@ export const Header = () => {
                   {item.name}
                 </motion.button>
               ))}
-              <Button
-                onClick={() => scrollToSection("#contact")}
-                className="mt-2 w-full gradient-bg text-primary-foreground"
-              >
-                Hire Me
-              </Button>
+              <div className="flex gap-2 mt-4">
+                <Button
+                  asChild
+                  variant="outline"
+                  className="flex-1 border-primary/50"
+                >
+                  <a href="/resume.pdf" download="Sandip_Tawhare_Resume.pdf">
+                    <Download className="mr-2 h-4 w-4" />
+                    Resume
+                  </a>
+                </Button>
+                <Button
+                  onClick={() => scrollToSection("#contact")}
+                  className="flex-1 gradient-bg text-primary-foreground"
+                >
+                  Hire Me
+                </Button>
+              </div>
+              
+              {/* Social Links - Mobile */}
+              <div className="flex items-center justify-center gap-3 mt-4 pt-4 border-t border-border">
+                {socialLinks.map((link) => (
+                  <motion.a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    aria-label={link.label}
+                  >
+                    <link.icon className="h-5 w-5" />
+                  </motion.a>
+                ))}
+              </div>
             </nav>
           </motion.div>
         )}

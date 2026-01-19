@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Mail, MapPin, Phone, Send, Github, Linkedin, CheckCircle } from "lucide-react";
+import { Mail, MapPin, Phone, Send, Github, Linkedin, Instagram, Twitter, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -11,14 +11,14 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "sandiptahware18081998@gmail.com",
-    href: "mailto:sandiptahware18081998@gmail.com",
+    value: "sandiptawhare18081998@gmail.com",
+    href: "mailto:sandiptawhare18081998@gmail.com",
   },
   {
     icon: Phone,
     label: "Phone",
-    value: "+91 7768056758",
-    href: "tel:+917768056758",
+    value: "+91 9527849688",
+    href: "tel:+919527849688",
   },
   {
     icon: MapPin,
@@ -26,6 +26,13 @@ const contactInfo = [
     value: "Pune, Maharashtra, India",
     href: null,
   },
+];
+
+const socialLinks = [
+  { icon: Github, href: "https://github.com/codersandip", label: "GitHub" },
+  { icon: Linkedin, href: "https://in.linkedin.com/in/sandip-tawhare-coder", label: "LinkedIn" },
+  { icon: Instagram, href: "https://www.instagram.com/sandip.tawhare", label: "Instagram" },
+  { icon: Twitter, href: "https://x.com/sandiptawhare11", label: "Twitter" },
 ];
 
 export const Contact = () => {
@@ -143,36 +150,34 @@ export const Contact = () => {
               <h3 className="text-lg font-semibold text-hero-foreground mb-4">
                 Follow Me
               </h3>
-              <div className="flex gap-3">
-                <motion.a
-                  href="https://github.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-12 h-12 rounded-lg bg-primary/10 hover:bg-primary/20 flex items-center justify-center text-hero-foreground/70 hover:text-primary transition-all"
-                >
-                  <Github className="h-5 w-5" />
-                </motion.a>
-                <motion.a
-                  href="https://linkedin.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-12 h-12 rounded-lg bg-primary/10 hover:bg-primary/20 flex items-center justify-center text-hero-foreground/70 hover:text-primary transition-all"
-                >
-                  <Linkedin className="h-5 w-5" />
-                </motion.a>
+              <div className="flex flex-wrap gap-3">
+                {socialLinks.map((link) => (
+                  <motion.a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-12 h-12 rounded-lg bg-primary/10 hover:bg-primary/20 flex items-center justify-center text-hero-foreground/70 hover:text-primary transition-all"
+                    aria-label={link.label}
+                  >
+                    <link.icon className="h-5 w-5" />
+                  </motion.a>
+                ))}
               </div>
             </div>
 
             {/* Download Resume */}
             <Button
+              asChild
               variant="outline"
               className="w-full border-primary/50 text-hero-foreground hover:bg-primary/10"
             >
-              Download Resume
+              <a href="/resume.pdf" download="Sandip_Tawhare_Resume.pdf">
+                <Download className="mr-2 h-4 w-4" />
+                Download Resume
+              </a>
             </Button>
           </motion.div>
 
