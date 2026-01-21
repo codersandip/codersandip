@@ -19,7 +19,7 @@
   <a href="https://in.linkedin.com/in/sandip-tawhare-coder">
     <img src="https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin" />
   </a>
-  <a href="https://resume.sandiptawhare.com">
+  <a href="https://www.sandiptawhare.com">
     <img src="https://img.shields.io/badge/Portfolio-Visit-success?style=for-the-badge&logo=firefox" />
   </a>
 </p>
