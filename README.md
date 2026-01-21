@@ -96,12 +96,12 @@ Job portal for Maharashtra region
 ## 📊 GitHub Performance  
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=tushar-sandip
+  <img src="https://github-readme-stats.vercel.app/api?username=codersandip
 &show_icons=true&theme=tokyonight" />
 </p>
 
 <p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=tushar-sandip
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=codersandip
 &theme=tokyonight" />
 </p>
 
