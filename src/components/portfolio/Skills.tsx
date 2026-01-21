@@ -1,97 +1,37 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { 
-  Code2, 
-  Database, 
-  Cloud, 
-  Wrench, 
-  Layout,
-  Server,
-  Cpu,
-  GitBranch,
-  Container,
-  Globe
-} from "lucide-react";
 
-const allSkills = [
-  // Backend
-  { name: "PHP", icon: Code2 },
-  { name: "Laravel", icon: Server },
-  { name: "Node.js", icon: Cpu },
-  { name: "CodeIgniter", icon: Code2 },
-  { name: "REST APIs", icon: Globe },
-  // Frontend
-  { name: "React.js", icon: Layout },
-  { name: "Vue.js", icon: Layout },
-  { name: "JavaScript", icon: Code2 },
-  { name: "TypeScript", icon: Code2 },
-  { name: "Tailwind CSS", icon: Layout },
-  // Databases
-  { name: "MySQL", icon: Database },
-  { name: "MongoDB", icon: Database },
-  { name: "Redis", icon: Database },
-  { name: "PostgreSQL", icon: Database },
-  // DevOps
-  { name: "Docker", icon: Container },
-  { name: "Kubernetes", icon: Cloud },
-  { name: "AWS", icon: Cloud },
-  { name: "CI/CD", icon: GitBranch },
-  { name: "Linux", icon: Cpu },
-  // Tools
-  { name: "Git", icon: GitBranch },
-  { name: "Nginx", icon: Server },
-  { name: "Terraform", icon: Wrench },
-  { name: "Prometheus", icon: Wrench },
+const skillCategories = [
+  {
+    title: "Backend",
+    skills: ["PHP", "Laravel", "Node.js", "CodeIgniter", "Sails.js", "REST APIs"],
+  },
+  {
+    title: "Frontend",
+    skills: ["React.js", "Vue.js", "JavaScript", "TypeScript", "Tailwind CSS", "Bootstrap"],
+  },
+  {
+    title: "Databases",
+    skills: ["MySQL", "MongoDB", "Redis", "PostgreSQL", "Elasticsearch"],
+  },
+  {
+    title: "DevOps & Cloud",
+    skills: ["Docker", "Kubernetes", "AWS", "CI/CD", "Linux", "Nginx"],
+  },
+  {
+    title: "Tools & Others",
+    skills: ["Git", "Terraform", "ELK Stack", "Prometheus", "Grafana", "Jira"],
+  },
 ];
-
-const SkillBadge = ({ name, icon: Icon }: { name: string; icon: typeof Code2 }) => (
-  <div className="flex items-center gap-3 px-5 py-3 rounded-xl bg-card border border-border/50 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 group cursor-default whitespace-nowrap">
-    <Icon className="h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
-    <span className="text-sm font-medium text-foreground">{name}</span>
-  </div>
-);
-
-const MarqueeRow = ({ skills, direction = "left", speed = 25 }: { 
-  skills: typeof allSkills; 
-  direction?: "left" | "right";
-  speed?: number;
-}) => {
-  const animationDirection = direction === "left" ? "normal" : "reverse";
-  
-  return (
-    <div className="relative overflow-hidden py-2">
-      {/* Fade edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10" />
-      <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10" />
-      
-      <div 
-        className="flex gap-4 animate-marquee"
-        style={{ 
-          animationDuration: `${speed}s`,
-          animationDirection,
-        }}
-      >
-        {/* Double the items for seamless loop */}
-        {[...skills, ...skills].map((skill, index) => (
-          <SkillBadge key={`${skill.name}-${index}`} {...skill} />
-        ))}
-      </div>
-    </div>
-  );
-};
 
 export const Skills = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  // Split skills into two rows
-  const firstRowSkills = allSkills.slice(0, Math.ceil(allSkills.length / 2));
-  const secondRowSkills = allSkills.slice(Math.ceil(allSkills.length / 2));
-
   return (
-    <section id="skills" className="section-padding bg-background overflow-hidden" ref={ref}>
-      <div className="container-custom mb-12">
-        <div className="text-center max-w-3xl mx-auto">
+    <section id="skills" className="section-padding bg-background" ref={ref}>
+      <div className="container-custom">
+        <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.span
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
@@ -118,17 +58,41 @@ export const Skills = () => {
             across multiple domains.
           </motion.p>
         </div>
-      </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.8, delay: 0.3 }}
-        className="space-y-4"
-      >
-        <MarqueeRow skills={firstRowSkills} direction="left" speed={30} />
-        <MarqueeRow skills={secondRowSkills} direction="right" speed={35} />
-      </motion.div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {skillCategories.map((category, catIndex) => (
+            <motion.div
+              key={category.title}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.3 + catIndex * 0.1 }}
+              className="glass-card rounded-xl p-6"
+            >
+              <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full gradient-bg" />
+                {category.title}
+              </h3>
+
+              <div className="flex flex-wrap gap-2">
+                {category.skills.map((skill, skillIndex) => (
+                  <motion.span
+                    key={skill}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{
+                      duration: 0.3,
+                      delay: 0.4 + catIndex * 0.1 + skillIndex * 0.05,
+                    }}
+                    className="px-3 py-1.5 text-sm font-medium rounded-full bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors cursor-default"
+                  >
+                    {skill}
+                  </motion.span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 };
