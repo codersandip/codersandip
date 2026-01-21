@@ -92,7 +92,7 @@ Job portal for Maharashtra region
 ✔ Media optimization pipelines  
 
 ---
-
+<!--
 ## 📊 GitHub Performance  
 
 <p align="center">
@@ -111,7 +111,7 @@ Job portal for Maharashtra region
 
 ![snake animation](https://github.com/codersandip/codersandip/blob/output/github-contribution-grid-snake.svg)
 
----
+---  -->
 
 ## 🎓 Education  
 
