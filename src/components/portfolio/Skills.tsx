@@ -4,52 +4,23 @@ import { useRef } from "react";
 const skillCategories = [
   {
     title: "Backend",
-    skills: [
-      { name: "PHP", level: 95 },
-      { name: "Laravel", level: 95 },
-      { name: "Node.js", level: 75 },
-      { name: "CodeIgniter", level: 85 },
-      { name: "Sails.js", level: 70 },
-    ],
+    skills: ["PHP", "Laravel", "Node.js", "CodeIgniter", "Sails.js", "REST APIs"],
   },
   {
     title: "Frontend",
-    skills: [
-      { name: "React.js", level: 80 },
-      { name: "Vue.js", level: 75 },
-      { name: "JavaScript", level: 85 },
-      { name: "Tailwind CSS", level: 90 },
-      { name: "Bootstrap", level: 85 },
-    ],
+    skills: ["React.js", "Vue.js", "JavaScript", "TypeScript", "Tailwind CSS", "Bootstrap"],
   },
   {
     title: "Databases",
-    skills: [
-      { name: "MySQL", level: 90 },
-      { name: "MongoDB", level: 75 },
-      { name: "Redis", level: 85 },
-      { name: "PostgreSQL", level: 70 },
-    ],
+    skills: ["MySQL", "MongoDB", "Redis", "PostgreSQL", "Elasticsearch"],
   },
   {
     title: "DevOps & Cloud",
-    skills: [
-      { name: "Docker", level: 85 },
-      { name: "Kubernetes", level: 70 },
-      { name: "AWS", level: 85 },
-      { name: "CI/CD", level: 90 },
-      { name: "Linux", level: 85 },
-    ],
+    skills: ["Docker", "Kubernetes", "AWS", "CI/CD", "Linux", "Nginx"],
   },
   {
     title: "Tools & Others",
-    skills: [
-      { name: "Git", level: 95 },
-      { name: "Nginx", level: 80 },
-      { name: "Terraform", level: 65 },
-      { name: "ELK Stack", level: 70 },
-      { name: "Prometheus", level: 65 },
-    ],
+    skills: ["Git", "Terraform", "ELK Stack", "Prometheus", "Grafana", "Jira"],
   },
 ];
 
@@ -102,30 +73,20 @@ export const Skills = () => {
                 {category.title}
               </h3>
 
-              <div className="space-y-4">
+              <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill, skillIndex) => (
-                  <div key={skill.name}>
-                    <div className="flex justify-between items-center mb-1.5">
-                      <span className="text-sm font-medium text-foreground">
-                        {skill.name}
-                      </span>
-                      <span className="text-xs text-muted-foreground">
-                        {skill.level}%
-                      </span>
-                    </div>
-                    <div className="h-2 bg-muted rounded-full overflow-hidden">
-                      <motion.div
-                        className="h-full gradient-bg rounded-full"
-                        initial={{ width: 0 }}
-                        animate={isInView ? { width: `${skill.level}%` } : {}}
-                        transition={{
-                          duration: 1,
-                          delay: 0.5 + catIndex * 0.1 + skillIndex * 0.05,
-                          ease: "easeOut",
-                        }}
-                      />
-                    </div>
-                  </div>
+                  <motion.span
+                    key={skill}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{
+                      duration: 0.3,
+                      delay: 0.4 + catIndex * 0.1 + skillIndex * 0.05,
+                    }}
+                    className="px-3 py-1.5 text-sm font-medium rounded-full bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors cursor-default"
+                  >
+                    {skill}
+                  </motion.span>
                 ))}
               </div>
             </motion.div>

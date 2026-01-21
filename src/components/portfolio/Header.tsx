@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Download, Github, Linkedin, Instagram, Twitter, Mail, Phone } from "lucide-react";
-import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "@/components/ui/button";
 
 const socialLinks = [
@@ -129,8 +128,6 @@ export const Header = () => {
                   </motion.a>
                 ))}
               </div>
-              
-              <ThemeToggle />
               
               <Button
                 asChild
