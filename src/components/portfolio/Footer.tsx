@@ -69,9 +69,8 @@ export const Footer = () => {
             {/* Copyright */}
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <span>© 2025 Sandip B. Tawhare.</span>
-              <span className="hidden sm:inline">Crafted with</span>
-              <Heart className="h-4 w-4 text-primary hidden sm:inline" />
-              <span className="hidden sm:inline">using Laravel, React & modern tech.</span>
+              <span className="hidden sm:inline">•</span>
+              <span className="hidden sm:inline">Building digital experiences that matter.</span>
             </div>
 
             {/* Social Links & Scroll to Top */}
