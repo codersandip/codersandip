@@ -9,6 +9,8 @@ import { Projects } from "@/components/portfolio/Projects";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
 import { Preloader } from "@/components/portfolio/Preloader";
+import { CustomCursor } from "@/components/portfolio/CustomCursor";
+import { ScrollReveal } from "@/components/portfolio/ScrollReveal";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 
@@ -58,6 +60,9 @@ const Index = () => {
 
   return (
     <>
+      {/* Custom animated cursor */}
+      <CustomCursor />
+
       <AnimatePresence mode="wait">
         {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
       </AnimatePresence>
@@ -95,28 +100,28 @@ const Index = () => {
                 <Hero />
               </motion.div>
 
-              {/* Staggered sections */}
-              <motion.div variants={sectionVariants}>
+              {/* Scroll-animated sections */}
+              <ScrollReveal direction="up" delay={0.1}>
                 <About />
-              </motion.div>
-              <motion.div variants={sectionVariants}>
+              </ScrollReveal>
+              <ScrollReveal direction="up" delay={0.15}>
                 <StatsCounter />
-              </motion.div>
-              <motion.div variants={sectionVariants}>
+              </ScrollReveal>
+              <ScrollReveal direction="left" delay={0.1} scale>
                 <CoreExpertise />
-              </motion.div>
-              <motion.div variants={sectionVariants}>
+              </ScrollReveal>
+              <ScrollReveal direction="right" delay={0.1} scale>
                 <Skills />
-              </motion.div>
-              <motion.div variants={sectionVariants}>
+              </ScrollReveal>
+              <ScrollReveal direction="up" delay={0.15}>
                 <ExperienceTimeline />
-              </motion.div>
-              <motion.div variants={sectionVariants}>
+              </ScrollReveal>
+              <ScrollReveal direction="up" delay={0.1} scale>
                 <Projects />
-              </motion.div>
-              <motion.div variants={sectionVariants}>
+              </ScrollReveal>
+              <ScrollReveal direction="up" delay={0.15}>
                 <Contact />
-              </motion.div>
+              </ScrollReveal>
             </main>
 
             {/* Footer entrance */}

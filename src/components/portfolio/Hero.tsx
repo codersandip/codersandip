@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowDown, Download, Mail, Github, Linkedin, Instagram, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ParticleBackground } from "./ParticleBackground";
+import { Typewriter } from "./Typewriter";
 
 const socialLinks = [
   { icon: Github, href: "https://github.com/codersandip", label: "GitHub" },
@@ -50,15 +51,25 @@ export const Hero = () => {
             <span className="gradient-text">Sandip Tawhare</span>
           </motion.h1>
 
-          {/* Title */}
+          {/* Title with Typewriter */}
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl sm:text-2xl md:text-3xl font-semibold text-hero-foreground/90 mb-6"
           >
-            Senior Laravel Developer &{" "}
-            <span className="gradient-text">System Architect</span>
+            <Typewriter
+              words={[
+                "Senior Laravel Developer",
+                "System Architect",
+                "Cloud Solutions Expert",
+                "DevOps Engineer",
+                "Backend Specialist",
+              ]}
+              typingSpeed={80}
+              deletingSpeed={40}
+              pauseDuration={2500}
+            />
           </motion.h2>
 
           {/* Headline */}
