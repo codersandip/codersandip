@@ -135,7 +135,7 @@ export const Header = () => {
                 size="sm"
                 className="hidden md:inline-flex border-primary/50 text-foreground hover:bg-primary/10"
               >
-                <a href="/resume.pdf" download="Sandip_Tawhare_Resume.pdf">
+                <a href="https://resume.sandiptawhare.com/Sandip%20Baliram%20Tawhare%20-%20Resume.pdf" target="_blank" rel="noopener noreferrer">
                   <Download className="mr-2 h-4 w-4" />
                   Resume
                 </a>
@@ -199,7 +199,7 @@ export const Header = () => {
                   variant="outline"
                   className="flex-1 border-primary/50"
                 >
-                  <a href="/resume.pdf" download="Sandip_Tawhare_Resume.pdf">
+                  <a href="https://resume.sandiptawhare.com/Sandip%20Baliram%20Tawhare%20-%20Resume.pdf" target="_blank" rel="noopener noreferrer">
                     <Download className="mr-2 h-4 w-4" />
                     Resume
                   </a>
