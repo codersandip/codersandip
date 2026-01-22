@@ -10,38 +10,126 @@ import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
 import { Preloader } from "@/components/portfolio/Preloader";
 import { useEffect, useState } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
     // Set dark mode by default
     document.documentElement.classList.add("dark");
   }, []);
 
+  const handlePreloaderComplete = () => {
+    setIsLoading(false);
+    // Small delay before showing content for smooth transition
+    setTimeout(() => setShowContent(true), 100);
+  };
+
+  const pageVariants: Variants = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const sectionVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: 60,
+      scale: 0.95,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+      },
+    },
+  };
+
   return (
     <>
       <AnimatePresence mode="wait">
-        {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
+        {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
       </AnimatePresence>
 
-      {!isLoading && (
-        <div className="min-h-screen bg-background">
-          <Header />
-          <main>
-            <Hero />
-            <About />
-            <StatsCounter />
-            <CoreExpertise />
-            <Skills />
-            <ExperienceTimeline />
-            <Projects />
-            <Contact />
-          </main>
-          <Footer />
-        </div>
-      )}
+      <AnimatePresence>
+        {!isLoading && (
+          <motion.div
+            className="min-h-screen bg-background overflow-hidden"
+            initial="hidden"
+            animate={showContent ? "visible" : "hidden"}
+            variants={pageVariants}
+          >
+            {/* Header with separate entrance */}
+            <motion.div
+              initial={{ y: -100, opacity: 0 }}
+              animate={showContent ? { y: 0, opacity: 1 } : { y: -100, opacity: 0 }}
+              transition={{ 
+                duration: 0.8, 
+                delay: 0.2,
+              }}
+            >
+              <Header />
+            </motion.div>
+
+            <main>
+              {/* Hero with dramatic entrance */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={showContent ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+                transition={{ 
+                  duration: 1, 
+                  delay: 0.3,
+                }}
+              >
+                <Hero />
+              </motion.div>
+
+              {/* Staggered sections */}
+              <motion.div variants={sectionVariants}>
+                <About />
+              </motion.div>
+              <motion.div variants={sectionVariants}>
+                <StatsCounter />
+              </motion.div>
+              <motion.div variants={sectionVariants}>
+                <CoreExpertise />
+              </motion.div>
+              <motion.div variants={sectionVariants}>
+                <Skills />
+              </motion.div>
+              <motion.div variants={sectionVariants}>
+                <ExperienceTimeline />
+              </motion.div>
+              <motion.div variants={sectionVariants}>
+                <Projects />
+              </motion.div>
+              <motion.div variants={sectionVariants}>
+                <Contact />
+              </motion.div>
+            </main>
+
+            {/* Footer entrance */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={showContent ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+            >
+              <Footer />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
