@@ -1,9 +1,10 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ArrowDown, Download, Mail, Github, Linkedin, Instagram, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ParticleBackground } from "./ParticleBackground";
 import { Typewriter } from "./Typewriter";
 import { MagneticButton } from "./MagneticButton";
+import { useRef } from "react";
 
 const socialLinks = [
   { icon: Github, href: "https://github.com/codersandip", label: "GitHub" },
@@ -14,6 +15,19 @@ const socialLinks = [
 ];
 
 export const Hero = () => {
+  const heroRef = useRef<HTMLElement>(null);
+  
+  const { scrollY } = useScroll();
+  
+  // Parallax effects for hero content
+  const contentY = useTransform(scrollY, [0, 600], [0, 150]);
+  const contentOpacity = useTransform(scrollY, [0, 400], [1, 0]);
+  const contentScale = useTransform(scrollY, [0, 400], [1, 0.95]);
+  
+  const smoothContentY = useSpring(contentY, { stiffness: 50, damping: 20 });
+  const smoothContentOpacity = useSpring(contentOpacity, { stiffness: 50, damping: 20 });
+  const smoothContentScale = useSpring(contentScale, { stiffness: 50, damping: 20 });
+
   const scrollToProjects = () => {
     document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -23,10 +37,17 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center hero-section overflow-hidden">
+    <section ref={heroRef} className="relative min-h-screen flex items-center justify-center hero-section overflow-hidden">
       <ParticleBackground />
 
-      <div className="container-custom relative z-10 pt-20">
+      <motion.div 
+        className="container-custom relative z-10 pt-20"
+        style={{
+          y: smoothContentY,
+          opacity: smoothContentOpacity,
+          scale: smoothContentScale,
+        }}
+      >
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
           <motion.div
@@ -175,7 +196,7 @@ export const Hero = () => {
             />
           </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 };
