@@ -11,6 +11,7 @@ import { Footer } from "@/components/portfolio/Footer";
 import { Preloader } from "@/components/portfolio/Preloader";
 import { CustomCursor } from "@/components/portfolio/CustomCursor";
 import { ScrollReveal } from "@/components/portfolio/ScrollReveal";
+import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 
@@ -62,6 +63,9 @@ const Index = () => {
     <>
       {/* Custom animated cursor */}
       <CustomCursor />
+
+      {/* Scroll progress indicator */}
+      {!isLoading && <ScrollProgress />}
 
       <AnimatePresence mode="wait">
         {isLoading && <Preloader onComplete={handlePreloaderComplete} />}

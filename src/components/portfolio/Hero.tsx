@@ -3,6 +3,7 @@ import { ArrowDown, Download, Mail, Github, Linkedin, Instagram, Twitter } from 
 import { Button } from "@/components/ui/button";
 import { ParticleBackground } from "./ParticleBackground";
 import { Typewriter } from "./Typewriter";
+import { MagneticButton } from "./MagneticButton";
 
 const socialLinks = [
   { icon: Github, href: "https://github.com/codersandip", label: "GitHub" },
@@ -94,34 +95,40 @@ export const Hero = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
           >
-            <Button
-              size="lg"
-              onClick={scrollToProjects}
-              className="gradient-bg text-primary-foreground hover:opacity-90 glow-sm px-8 py-6 text-base"
-            >
-              View Projects
-              <ArrowDown className="ml-2 h-4 w-4" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={scrollToContact}
-              className="border-primary/50 text-hero-foreground hover:bg-primary/10 px-8 py-6 text-base"
-            >
-              <Mail className="mr-2 h-4 w-4" />
-              Contact Me
-            </Button>
-            <Button
-              size="lg"
-              variant="ghost"
-              className="text-hero-foreground/70 hover:text-hero-foreground hover:bg-primary/10 px-8 py-6 text-base"
-              asChild
-            >
-              <a href="https://resume.sandiptawhare.com/Sandip%20Baliram%20Tawhare%20-%20Resume.pdf" target="_blank" rel="noopener noreferrer">
-                <Download className="mr-2 h-4 w-4" />
-                Resume
-              </a>
-            </Button>
+            <MagneticButton strength={0.4}>
+              <Button
+                size="lg"
+                onClick={scrollToProjects}
+                className="gradient-bg text-primary-foreground hover:opacity-90 glow-sm px-8 py-6 text-base"
+              >
+                View Projects
+                <ArrowDown className="ml-2 h-4 w-4" />
+              </Button>
+            </MagneticButton>
+            <MagneticButton strength={0.4}>
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={scrollToContact}
+                className="border-primary/50 text-hero-foreground hover:bg-primary/10 px-8 py-6 text-base"
+              >
+                <Mail className="mr-2 h-4 w-4" />
+                Contact Me
+              </Button>
+            </MagneticButton>
+            <MagneticButton strength={0.4}>
+              <Button
+                size="lg"
+                variant="ghost"
+                className="text-hero-foreground/70 hover:text-hero-foreground hover:bg-primary/10 px-8 py-6 text-base"
+                asChild
+              >
+                <a href="https://resume.sandiptawhare.com/Sandip%20Baliram%20Tawhare%20-%20Resume.pdf" target="_blank" rel="noopener noreferrer">
+                  <Download className="mr-2 h-4 w-4" />
+                  Resume
+                </a>
+              </Button>
+            </MagneticButton>
           </motion.div>
 
           {/* Social Links */}
@@ -132,18 +139,19 @@ export const Hero = () => {
             className="flex items-center justify-center gap-4"
           >
             {socialLinks.map((link) => (
-              <motion.a
-                key={link.label}
-                href={link.href}
-                target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-                rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-                className="p-3 rounded-full bg-hero-foreground/5 hover:bg-primary/20 text-hero-foreground/70 hover:text-primary transition-all"
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label={link.label}
-              >
-                <link.icon className="h-5 w-5" />
-              </motion.a>
+              <MagneticButton key={link.label} strength={0.5}>
+                <motion.a
+                  href={link.href}
+                  target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+                  className="p-3 rounded-full bg-hero-foreground/5 hover:bg-primary/20 text-hero-foreground/70 hover:text-primary transition-all"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  aria-label={link.label}
+                >
+                  <link.icon className="h-5 w-5" />
+                </motion.a>
+              </MagneticButton>
             ))}
           </motion.div>
         </div>
