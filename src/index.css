@@ -246,3 +246,13 @@
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-primary/70;
 }
+
+/* Shimmer animation for skeletons */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

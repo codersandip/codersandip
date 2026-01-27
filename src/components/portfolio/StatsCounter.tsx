@@ -53,7 +53,7 @@ export const StatsCounter = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-16 md:py-20 bg-background" ref={ref}>
+    <section id="stats" className="py-16 md:py-20 bg-background" ref={ref}>
       <div className="container-custom">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {stats.map((stat, index) => (
