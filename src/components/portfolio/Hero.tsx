@@ -37,10 +37,10 @@ export const Hero = () => {
   };
 
   return (
-    <section ref={heroRef} className="relative min-h-screen flex items-center justify-center hero-section overflow-hidden">
+    <section id="hero" ref={heroRef} className="relative min-h-screen flex items-center justify-center hero-section overflow-hidden">
       <ParticleBackground />
 
-      <motion.div 
+      <motion.div
         className="container-custom relative z-10 pt-20"
         style={{
           y: smoothContentY,
