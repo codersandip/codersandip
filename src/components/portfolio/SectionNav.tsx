@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 
 const sections = [
   { id: "hero", label: "Home" },
@@ -17,6 +17,8 @@ export const SectionNav = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [transitionDirection, setTransitionDirection] = useState<"up" | "down">("down");
+  const [keyboardHint, setKeyboardHint] = useState(false);
+  const hintTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,6 +45,35 @@ export const SectionNav = () => {
     
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isTransitioning]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Only handle if no input/textarea is focused
+      if (["INPUT", "TEXTAREA"].includes((e.target as HTMLElement)?.tagName)) return;
+
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        e.preventDefault();
+        const currentIndex = sections.findIndex(s => s.id === activeSection);
+        const nextIndex = e.key === "ArrowDown"
+          ? Math.min(currentIndex + 1, sections.length - 1)
+          : Math.max(currentIndex - 1, 0);
+        if (nextIndex !== currentIndex) {
+          scrollToSection(sections[nextIndex].id);
+          // Show keyboard hint briefly
+          setKeyboardHint(true);
+          if (hintTimer.current) clearTimeout(hintTimer.current);
+          hintTimer.current = setTimeout(() => setKeyboardHint(false), 2000);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      if (hintTimer.current) clearTimeout(hintTimer.current);
+    };
+  }, [activeSection, isTransitioning]);
 
   const scrollToSection = useCallback((id: string) => {
     const element = document.getElementById(id);
@@ -120,6 +151,25 @@ export const SectionNav = () => {
               transition={{ duration: 0.4 }}
               className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,hsl(var(--background)/0.4)_100%)]"
             />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Keyboard navigation hint */}
+      <AnimatePresence>
+        {keyboardHint && (
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 30 }}
+            transition={{ duration: 0.3 }}
+            className="fixed right-20 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col items-center gap-1 bg-background/90 border border-border/50 rounded-lg px-3 py-2 backdrop-blur-sm shadow-lg"
+          >
+            <div className="flex items-center gap-1.5">
+              <kbd className="w-6 h-6 rounded border border-border bg-muted text-muted-foreground text-xs flex items-center justify-center font-mono">↑</kbd>
+              <kbd className="w-6 h-6 rounded border border-border bg-muted text-muted-foreground text-xs flex items-center justify-center font-mono">↓</kbd>
+            </div>
+            <span className="text-[10px] text-muted-foreground whitespace-nowrap">Navigate sections</span>
           </motion.div>
         )}
       </AnimatePresence>
