@@ -12,7 +12,6 @@ import { Preloader } from "@/components/portfolio/Preloader";
 import { CustomCursor } from "@/components/portfolio/CustomCursor";
 import { ScrollReveal } from "@/components/portfolio/ScrollReveal";
 import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
-import { SectionNav } from "@/components/portfolio/SectionNav";
 import { BackToTop } from "@/components/portfolio/BackToTop";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, Variants } from "framer-motion";
@@ -68,9 +67,6 @@ const Index = () => {
 
       {/* Scroll progress indicator */}
       {!isLoading && <ScrollProgress />}
-
-      {/* Section navigation dots */}
-      {!isLoading && <SectionNav />}
 
       {/* Back to top button */}
       {!isLoading && <BackToTop />}
