@@ -1,4 +1,4 @@
-import { useRef, ReactNode } from "react";
+import { useRef, ReactNode, forwardRef } from "react";
 import { motion, useInView, useScroll, useTransform, useSpring } from "framer-motion";
 
 interface ScrollRevealProps {
@@ -12,7 +12,7 @@ interface ScrollRevealProps {
   parallaxSpeed?: number;
 }
 
-export const ScrollReveal = ({
+export const ScrollReveal = forwardRef<HTMLDivElement, ScrollRevealProps>(({
   children,
   direction = "up",
   delay = 0,
@@ -21,15 +21,17 @@ export const ScrollReveal = ({
   className = "",
   parallax = true,
   parallaxSpeed = 0.15,
-}: ScrollRevealProps) => {
-  const ref = useRef<HTMLDivElement>(null);
+}, forwardedRef) => {
+  const innerRef = useRef<HTMLDivElement>(null);
+  // Use inner ref for scroll tracking; forwarded ref satisfies AnimatePresence
+  const ref = innerRef;
+
   const isInView = useInView(ref, { 
     once: true, 
     margin: "-50px",
     amount: 0.1 
   });
 
-  // Parallax scroll effect
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
@@ -97,18 +99,22 @@ export const ScrollReveal = ({
   };
 
   return (
-    <motion.div
-      ref={ref}
-      variants={variants}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      className={className}
-      style={parallax ? { 
-        y: smoothParallaxY,
-        scale: smoothParallaxScale,
-      } : undefined}
-    >
-      {children}
-    </motion.div>
+    <div ref={forwardedRef} className={className}>
+      <div ref={innerRef}>
+        <motion.div
+          variants={variants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          style={parallax ? { 
+            y: smoothParallaxY,
+            scale: smoothParallaxScale,
+          } : undefined}
+        >
+          {children}
+        </motion.div>
+      </div>
+    </div>
   );
-};
+});
+
+ScrollReveal.displayName = "ScrollReveal";
