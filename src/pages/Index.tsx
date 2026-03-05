@@ -13,51 +13,16 @@ import { CustomCursor } from "@/components/portfolio/CustomCursor";
 import { ScrollReveal } from "@/components/portfolio/ScrollReveal";
 import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
 import { BackToTop } from "@/components/portfolio/BackToTop";
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion, Variants } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
 
-  useEffect(() => {
-    // Set dark mode by default
-    document.documentElement.classList.add("dark");
-  }, []);
-
   const handlePreloaderComplete = () => {
     setIsLoading(false);
-    // Small delay before showing content for smooth transition
     setTimeout(() => setShowContent(true), 100);
-  };
-
-  const pageVariants: Variants = {
-    hidden: {
-      opacity: 0,
-    },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const sectionVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      y: 60,
-      scale: 0.95,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.8,
-      },
-    },
   };
 
   return (
@@ -75,74 +40,67 @@ const Index = () => {
         {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
       </AnimatePresence>
 
-      <AnimatePresence>
-        {!isLoading && (
+      {/* Main content — no AnimatePresence to avoid framer-motion ref cascade warnings */}
+      <div
+        className="min-h-screen bg-background overflow-hidden"
+        style={{
+          opacity: showContent ? 1 : 0,
+          transition: "opacity 0.6s ease",
+          visibility: isLoading ? "hidden" : "visible",
+        }}
+      >
+        {/* Header with entrance animation */}
+        <motion.div
+          initial={{ y: -100, opacity: 0 }}
+          animate={showContent ? { y: 0, opacity: 1 } : { y: -100, opacity: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <Header />
+        </motion.div>
+
+        <main>
+          {/* Hero with dramatic entrance */}
           <motion.div
-            className="min-h-screen bg-background overflow-hidden"
-            initial="hidden"
-            animate={showContent ? "visible" : "hidden"}
-            variants={pageVariants}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={showContent ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+            transition={{ duration: 1, delay: 0.3 }}
           >
-            {/* Header with separate entrance */}
-            <motion.div
-              initial={{ y: -100, opacity: 0 }}
-              animate={showContent ? { y: 0, opacity: 1 } : { y: -100, opacity: 0 }}
-              transition={{ 
-                duration: 0.8, 
-                delay: 0.2,
-              }}
-            >
-              <Header />
-            </motion.div>
-
-            <main>
-              {/* Hero with dramatic entrance */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={showContent ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-                transition={{ 
-                  duration: 1, 
-                  delay: 0.3,
-                }}
-              >
-                <Hero />
-              </motion.div>
-
-              {/* Scroll-animated sections */}
-              <ScrollReveal direction="up" delay={0.1}>
-                <About />
-              </ScrollReveal>
-              <ScrollReveal direction="up" delay={0.15}>
-                <StatsCounter />
-              </ScrollReveal>
-              <ScrollReveal direction="left" delay={0.1} scale>
-                <CoreExpertise />
-              </ScrollReveal>
-              <ScrollReveal direction="right" delay={0.1} scale>
-                <Skills />
-              </ScrollReveal>
-              <ScrollReveal direction="up" delay={0.15}>
-                <ExperienceTimeline />
-              </ScrollReveal>
-              <ScrollReveal direction="up" delay={0.1} scale>
-                <Projects />
-              </ScrollReveal>
-              <ScrollReveal direction="up" delay={0.15}>
-                <Contact />
-              </ScrollReveal>
-            </main>
-
-            {/* Footer entrance */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={showContent ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-            >
-              <Footer />
-            </motion.div>
+            <Hero />
           </motion.div>
-        )}
-      </AnimatePresence>
+
+          {/* Scroll-animated sections */}
+          <ScrollReveal direction="up" delay={0.1}>
+            <About />
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={0.15}>
+            <StatsCounter />
+          </ScrollReveal>
+          <ScrollReveal direction="left" delay={0.1} scale>
+            <CoreExpertise />
+          </ScrollReveal>
+          <ScrollReveal direction="right" delay={0.1} scale>
+            <Skills />
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={0.15}>
+            <ExperienceTimeline />
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={0.1} scale>
+            <Projects />
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={0.15}>
+            <Contact />
+          </ScrollReveal>
+        </main>
+
+        {/* Footer entrance */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={showContent ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+        >
+          <Footer />
+        </motion.div>
+      </div>
     </>
   );
 };
