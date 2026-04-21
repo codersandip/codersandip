@@ -6,6 +6,7 @@ import { StatsCounter } from "@/components/portfolio/StatsCounter";
 import { Skills } from "@/components/portfolio/Skills";
 import { ExperienceTimeline } from "@/components/portfolio/ExperienceTimeline";
 import { Projects } from "@/components/portfolio/Projects";
+import { OpenSource } from "@/components/portfolio/OpenSource";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
 import { Preloader } from "@/components/portfolio/Preloader";
@@ -86,6 +87,9 @@ const Index = () => {
           </ScrollReveal>
           <ScrollReveal direction="up" delay={0.1} scale>
             <Projects />
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={0.1}>
+            <OpenSource />
           </ScrollReveal>
           <ScrollReveal direction="up" delay={0.15}>
             <Contact />
