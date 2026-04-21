@@ -225,7 +225,7 @@ const RepoDetail = () => {
                 size="lg"
                 variant="outline"
                 onClick={handleCopyClone}
-                className="border-primary/40"
+                className="border-primary/40 text-foreground bg-transparent hover:bg-primary/10 hover:text-primary hover:border-primary"
               >
                 {copied ? (
                   <Check className="mr-2 w-4 h-4 text-primary" />
@@ -235,7 +235,7 @@ const RepoDetail = () => {
                 {copied ? "Copied!" : "Copy clone URL"}
               </Button>
               {repo?.homepage && (
-                <Button asChild size="lg" variant="outline" className="border-primary/40">
+                <Button asChild size="lg" variant="outline" className="border-primary/40 text-foreground bg-transparent hover:bg-primary/10 hover:text-primary hover:border-primary">
                   <a href={repo.homepage} target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="mr-2 w-4 h-4" />
                     Live demo
