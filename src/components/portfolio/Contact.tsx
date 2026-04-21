@@ -288,7 +288,7 @@ export const Contact = () => {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full gradient-bg text-primary-foreground hover:opacity-90 h-12"
+                className="w-full gradient-bg text-primary-foreground hover:opacity-90 hover:bg-transparent h-12"
               >
                 {isSubmitting ? (
                   <>
