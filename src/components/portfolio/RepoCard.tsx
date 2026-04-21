@@ -139,7 +139,7 @@ export const RepoCard = ({ meta, index }: RepoCardProps) => {
             </Link>
           </Button>
         </MagneticButton>
-        <Button asChild variant="outline" size="sm" className="border-primary/40">
+        <Button asChild variant="outline" size="sm" className="border-primary/40 text-foreground bg-transparent hover:bg-primary/10 hover:text-primary hover:border-primary">
           <a
             href={data?.html_url || `https://github.com/${GITHUB_USER}/${meta.name}`}
             target="_blank"
