@@ -80,12 +80,16 @@ export const Header = () => {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <motion.a
-              href="#"
+              href="/"
               className="text-lg md:text-xl font-bold"
               whileHover={{ scale: 1.02 }}
               onClick={(e) => {
                 e.preventDefault();
-                window.scrollTo({ top: 0, behavior: "smooth" });
+                if (isHome) {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                } else {
+                  navigate("/");
+                }
               }}
             >
               <span className="gradient-text">Sandip</span>
