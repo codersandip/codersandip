@@ -83,7 +83,7 @@ export const Skills = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-muted-foreground text-lg"
           >
-            A comprehensive toolkit built over 6+ years of hands-on experience
+            A comprehensive toolkit built over 7+ years of hands-on experience
             across multiple domains.
           </motion.p>
         </div>
