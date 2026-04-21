@@ -198,7 +198,7 @@ export const Contact = () => {
             <Button
               asChild
               variant="outline"
-              className="w-full border-primary/50 text-hero-foreground hover:bg-primary/10"
+              className="w-full border-primary/50 text-hero-foreground bg-transparent hover:bg-primary/10 hover:text-primary hover:border-primary"
             >
               <a href="https://resume.sandiptawhare.com/Sandip%20Baliram%20Tawhare%20-%20Resume.pdf" target="_blank" rel="noopener noreferrer">
                 <Download className="mr-2 h-4 w-4" />
@@ -288,7 +288,7 @@ export const Contact = () => {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full gradient-bg text-primary-foreground hover:opacity-90 h-12"
+                className="w-full gradient-bg text-primary-foreground hover:opacity-90 hover:bg-transparent h-12"
               >
                 {isSubmitting ? (
                   <>

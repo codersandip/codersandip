@@ -131,7 +131,7 @@ export const Hero = () => {
                 size="lg"
                 variant="outline"
                 onClick={scrollToContact}
-                className="border-primary/50 text-hero-foreground hover:bg-primary/10 px-8 py-6 text-base"
+                className="border-primary/50 text-hero-foreground bg-transparent hover:bg-primary/10 hover:text-primary hover:border-primary px-8 py-6 text-base"
               >
                 <Mail className="mr-2 h-4 w-4" />
                 Contact Me
@@ -141,7 +141,7 @@ export const Hero = () => {
               <Button
                 size="lg"
                 variant="ghost"
-                className="text-hero-foreground/70 hover:text-hero-foreground hover:bg-primary/10 px-8 py-6 text-base"
+                className="text-hero-foreground/70 hover:text-primary hover:bg-primary/10 px-8 py-6 text-base"
                 asChild
               >
                 <a href="https://resume.sandiptawhare.com/Sandip%20Baliram%20Tawhare%20-%20Resume.pdf" target="_blank" rel="noopener noreferrer">
