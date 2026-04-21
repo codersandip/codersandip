@@ -211,7 +211,7 @@ export const Header = () => {
                 <Button
                   asChild
                   variant="outline"
-                  className="flex-1 border-primary/50"
+                  className="flex-1 border-primary/50 text-foreground bg-transparent hover:bg-primary/10 hover:text-primary hover:border-primary"
                 >
                   <a href="https://resume.sandiptawhare.com/Sandip%20Baliram%20Tawhare%20-%20Resume.pdf" target="_blank" rel="noopener noreferrer">
                     <Download className="mr-2 h-4 w-4" />
@@ -220,7 +220,7 @@ export const Header = () => {
                 </Button>
                 <Button
                   onClick={() => scrollToSection("#contact")}
-                  className="flex-1 gradient-bg text-primary-foreground"
+                  className="flex-1 gradient-bg text-primary-foreground hover:opacity-90 hover:bg-transparent"
                 >
                   Hire Me
                 </Button>
