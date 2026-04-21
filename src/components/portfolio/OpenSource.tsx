@@ -48,7 +48,7 @@ export const OpenSource = () => {
             asChild
             variant="outline"
             size="lg"
-            className="border-primary/50 hover:bg-primary/10"
+            className="border-primary/50 text-foreground bg-transparent hover:bg-primary/10 hover:text-primary hover:border-primary"
           >
             <a
               href={`https://github.com/${GITHUB_USER}`}
