@@ -36,7 +36,10 @@ export const Footer = () => {
             <nav className="flex flex-col gap-2 text-sm text-muted-foreground">
               <a href="#about" className="hover:text-primary transition-colors">About</a>
               <a href="#expertise" className="hover:text-primary transition-colors">Expertise</a>
+              <a href="#skills" className="hover:text-primary transition-colors">Skills</a>
+              <a href="#experience" className="hover:text-primary transition-colors">Experience</a>
               <a href="#projects" className="hover:text-primary transition-colors">Projects</a>
+              <a href="#opensource" className="hover:text-primary transition-colors">Open Source</a>
               <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
             </nav>
           </div>

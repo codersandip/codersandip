@@ -104,7 +104,7 @@ export const Hero = () => {
             Building Scalable Systems with{" "}
             <span className="text-primary font-medium">Laravel</span>,{" "}
             <span className="text-primary font-medium">Cloud</span> &{" "}
-            <span className="text-primary font-medium">DevOps</span>. 6+ years
+            <span className="text-primary font-medium">DevOps</span>. 7+ years
             crafting high-performance backend architectures and automating
             deployments.
           </motion.p>

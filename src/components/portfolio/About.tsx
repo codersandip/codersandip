@@ -78,7 +78,7 @@ export const About = () => {
                   📍 Pune, Maharashtra
                 </div>
                 <div className="px-4 py-2 rounded-full bg-secondary text-secondary-foreground text-sm font-medium">
-                  💼 6+ Years Experience
+                  💼 7+ Years Experience
                 </div>
                 <div className="px-4 py-2 rounded-full bg-secondary text-secondary-foreground text-sm font-medium">
                   🎓 B.E. Computer Engineering
