@@ -116,6 +116,36 @@ export const repos: RepoMeta[] = [
     ],
     category: "Laravel Package",
   },
+  {
+    name: "telescope-exporter",
+    title: "Telescope Exporter",
+    tagline: "Export Laravel Telescope entries with ease",
+    description:
+      "A handy companion package for Laravel Telescope that exports recorded entries (requests, queries, jobs, exceptions) to JSON, CSV, or shareable archives — perfect for debugging across environments.",
+    tech: ["PHP", "Laravel", "Telescope", "CLI"],
+    highlights: [
+      "Export by type, date, or tag",
+      "JSON / CSV / archive output",
+      "Artisan command for CI pipelines",
+      "Filter sensitive data before export",
+    ],
+    category: "Laravel Package",
+  },
+  {
+    name: "role-permission-visualizer",
+    title: "Role Permission Visualizer",
+    tagline: "Visualize roles & permissions at a glance",
+    description:
+      "An interactive visualizer for Laravel role-based access control systems. Renders roles, permissions, and their relationships as a clear matrix and graph — making audits and onboarding effortless.",
+    tech: ["PHP", "Laravel", "Spatie", "Blade"],
+    highlights: [
+      "Matrix view of roles × permissions",
+      "Graph view of role inheritance",
+      "Works with Spatie Laravel Permission",
+      "Export visualizations as PNG / PDF",
+    ],
+    category: "Laravel Package",
+  },
 ];
 
 export const getRepoMeta = (name: string): RepoMeta | undefined =>
