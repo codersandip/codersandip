@@ -1,72 +1,73 @@
+## PageSpeed Improvement Plan
 
+Current mobile scores from your report: **Performance 70, Accessibility 94, Best Practices 100, SEO 100, Agents Browsing 1/2**. Goal: push Performance to 90+ and clean up the remaining a11y/BP nits — without touching the visual design.
 
-## Add Open Source / GitHub Repos Section
+### What the report is actually flagging
 
-Add a new "Open Source" section showcasing 7 GitHub repos by `codersandip`, plus an individual detail page per repo.
+| Metric | Value | Target |
+|---|---|---|
+| First Contentful Paint | 3.3s | < 1.8s |
+| Largest Contentful Paint | 4.4s | < 2.5s |
+| Total Blocking Time | 130ms | < 200ms ✓ |
+| Cumulative Layout Shift | 0 | ✓ |
+| Speed Index | 8.0s | < 3.4s |
 
-### Section on Home (between Projects and Contact)
+TBT and CLS are fine. The pain is **paint timing** — the hero (with particles, typewriter, framer-motion, preloader) blocks first paint for too long.
 
-A new `OpenSource.tsx` component renders a responsive grid of repo cards. Each card shows:
+### Fixes, in priority order
 
-- Repo name (with GitHub icon)
-- Short description (from GitHub API, with curated fallback for repos missing one)
-- Primary language badge + topic chips
-- Stars / forks / last-updated
-- Two actions: **View on GitHub** (external) and **Details** (internal route `/repo/:name`)
+**1. Kill the paint-blocking preloader for the LCP**
+The 3D preloader holds the page hidden until its animation finishes, which is the main reason LCP is 4.4s. Options:
+- Shorten preloader to ~600ms max, OR
+- Skip it on repeat visits (sessionStorage flag), OR
+- Render Hero text underneath so LCP element paints behind the preloader.
 
-Cards use the existing glass-card / gradient-border styling with hover lift, magnetic effect, and ScrollReveal entrance — matching the rest of the site.
+**2. Code-split heavy below-the-fold sections**
+Lazy-load with `React.lazy` + `Suspense`: `Projects`, `OpenSource`, `ExperienceTimeline`, `Contact`, `Footer`, and `RepoDetail` page. Keeps the initial JS bundle small (addresses "Reduce unused JavaScript — 27 KB" and "Reduce unused CSS — 13 KB").
 
-The 7 repos:
-1. react-qr-code
-2. cheque-printing-software
-3. laravel-api-toolkit
-4. laravel-dynamic-settings
-5. laravel-audit-pro
-6. laravel-multi-payment-gateway
-7. Laravel-QR-Auth
+**3. Defer / trim animation libraries on first paint**
+- Lazy-load `ParticleBackground` (dynamic import after hero mounts).
+- Lazy-load `CustomCursor` and `BackToTop` after idle (`requestIdleCallback`).
+- Import framer-motion features only where used (`LazyMotion` + `domAnimation`) instead of the full bundle.
 
-### Detail Page (`/repo/:name`)
+**4. Composite animations properly**
+Report flags "non-composited animations". Audit any `animate` on `width/height/top/left/margin` and switch to `transform` + `opacity` only. Add `will-change: transform` on the parallax hero layers.
 
-A new `RepoDetail.tsx` page route showing a deep view of one repo:
+**5. Preconnect & font loading**
+- `<link rel="preconnect" href="https://api.github.com">` (used by RepoCard).
+- `<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>` if Google Fonts in use.
+- Add `font-display: swap` to any `@font-face`.
 
-- Sticky header (reuses `Header`) with back-to-portfolio link
-- Hero band: repo name, description, language, stars/forks/watchers, created/updated dates
-- Topic chips
-- **Rendered README** (fetched live from `https://api.github.com/repos/codersandip/{name}/readme`, base64-decoded, rendered as Markdown via `react-markdown` + `remark-gfm` with Tailwind typography styling and syntax-highlighted code blocks)
-- Quick stats card: open issues, default branch, license, size
-- CTAs: View on GitHub, Clone URL (copy to clipboard), Live homepage (if present)
-- Loading skeletons while fetching, error fallback if API rate-limited
+**6. Image hygiene**
+- Add `loading="lazy"` and explicit `width`/`height` to every `<img>` below the fold.
+- Convert any PNG/JPG hero/project mockups to WebP via `vite-imagetools`.
+- Mark the single LCP image (if any) with `fetchpriority="high"` and preload it.
 
-Data is fetched client-side via `@tanstack/react-query` (already installed) for caching.
+**7. Accessibility nit (score 94 → 100)**
+"Buttons do not have an accessible name." Audit icon-only buttons (social links in Hero/Footer, BackToTop, theme toggle, magnetic buttons wrapping icons) and add `aria-label`.
 
-### Curated Fallback Metadata
+**8. Best Practices nit**
+"Uses third-party cookies" — comes from any embedded widget (formsubmit? analytics?). Low priority; only fixable by removing the third-party. Safe to leave.
 
-Since most repos have null descriptions on GitHub, a small `repos.ts` data file provides:
-- Polished `title`, `tagline`, `description`, `tech[]`, `highlights[]`, `category` for each of the 7 repos
-- Used on cards and the detail hero so the page looks complete even before the README loads
+**9. Agents Browsing (1/2)**
+"Access to page is not well-formed" — add a proper `llms.txt` at `public/llms.txt` describing the site and listing key sections.
 
-### Routing & Files
+### Expected impact
 
-```text
-src/
-  pages/
-    RepoDetail.tsx          NEW  — /repo/:name route
-  components/portfolio/
-    OpenSource.tsx          NEW  — grid section on home
-    RepoCard.tsx            NEW  — single card
-  data/
-    repos.ts                NEW  — curated metadata for 7 repos
-  App.tsx                   EDIT — add <Route path="/repo/:name" />
-  pages/Index.tsx           EDIT — insert <OpenSource /> before <Contact />
-  components/portfolio/Header.tsx  EDIT — add "Open Source" nav link (#opensource)
-```
+| Change | LCP gain | Score gain |
+|---|---|---|
+| Preloader fix | -1.5 to -2.0s | +10–15 |
+| Code-splitting | -0.5 to -1.0s | +5–8 |
+| Particle/cursor defer | -0.3s | +3 |
+| Composited animations | — | +2 |
+| Image/font hygiene | -0.2s | +2 |
 
-### Technical Details
+Realistic target: **Performance 90–95, Accessibility 100, BP 100, SEO 100, Agents 2/2**.
 
-- Packages to install: `react-markdown`, `remark-gfm`, `rehype-highlight`, `highlight.js` (for README rendering & code syntax highlighting). `@tanstack/react-query` is already in the project.
-- GitHub API calls are unauthenticated (60 req/hr per IP). Responses are cached via React Query with `staleTime: 1000 * 60 * 10`.
-- Markdown styles: use `@tailwindcss/typography` `prose prose-invert` classes scoped to README container; install `@tailwindcss/typography` plugin and add to `tailwind.config.ts`.
-- Animations: `framer-motion` entrance, magnetic buttons reused from existing components, consistent with portfolio styling.
-- SEO: detail page sets `<title>` and meta description dynamically via `document.title` effect.
-- Accessibility: cards are `<article>` with proper heading hierarchy; links have `aria-label`; back button is keyboard-focusable.
+### Technical notes
 
+- All work is in `src/pages/Index.tsx`, `src/components/portfolio/*`, `index.html`, `vite.config.ts`, `public/llms.txt`.
+- No design changes, no copy changes, no new dependencies except optionally `vite-imagetools`.
+- Verification: run `bun run build`, check chunk sizes, then re-run PageSpeed Insights on the published URL.
+
+Want me to start with **#1 + #2 + #7** (biggest wins, lowest risk) and ship the rest in a follow-up?
