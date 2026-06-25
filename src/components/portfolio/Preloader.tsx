@@ -9,12 +9,12 @@ export const Preloader = ({ onComplete }: { onComplete: () => void }) => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          setTimeout(onComplete, 600);
+          setTimeout(onComplete, 200);
           return 100;
         }
-        return prev + 2;
+        return prev + 10;
       });
-    }, 25);
+    }, 20);
 
     return () => clearInterval(interval);
   }, [onComplete]);

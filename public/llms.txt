@@ -1,0 +1,28 @@
+# Sandip B. Tawhare
+
+> Portfolio of Sandip B. Tawhare — Senior Laravel Developer, System Architect, and DevOps engineer with 7+ years of experience building scalable backend systems, REST APIs, and cloud-native solutions.
+
+Sandip is a Pune-based engineer specializing in Laravel, PHP, AWS, Docker, Kubernetes, and CI/CD pipelines. This site showcases his experience, skills, featured projects, and open-source Laravel packages.
+
+## Pages
+
+- [Home](https://www.sandiptawhare.com/): About, skills, experience, projects, open source, and contact
+- [Resume (PDF)](https://resume.sandiptawhare.com/Sandip%20Baliram%20Tawhare%20-%20Resume.pdf): Full resume
+
+## Open source packages
+
+- [react-qr-code](https://www.sandiptawhare.com/repo/react-qr-code)
+- [cheque-printing-software](https://www.sandiptawhare.com/repo/cheque-printing-software)
+- [laravel-api-toolkit](https://www.sandiptawhare.com/repo/laravel-api-toolkit)
+- [laravel-dynamic-settings](https://www.sandiptawhare.com/repo/laravel-dynamic-settings)
+- [laravel-audit-pro](https://www.sandiptawhare.com/repo/laravel-audit-pro)
+- [laravel-multi-payment-gateway](https://www.sandiptawhare.com/repo/laravel-multi-payment-gateway)
+- [Laravel-QR-Auth](https://www.sandiptawhare.com/repo/Laravel-QR-Auth)
+- [telescope-exporter](https://www.sandiptawhare.com/repo/telescope-exporter)
+- [role-permission-visualizer](https://www.sandiptawhare.com/repo/role-permission-visualizer)
+
+## Contact
+
+- Email: sandiptawhare18081998@gmail.com
+- GitHub: https://github.com/codersandip
+- LinkedIn: https://in.linkedin.com/in/sandip-tawhare-coder
