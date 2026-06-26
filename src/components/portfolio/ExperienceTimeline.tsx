@@ -5,63 +5,68 @@ import { MapPin, Calendar, ChevronRight } from "lucide-react";
 const experiences = [
   {
     company: "Vioron Internet Pvt Ltd",
-    role: "Software Development Engineer",
+    role: "Software Development Engineer (Laravel / PHP Backend)",
+    project: "Youhonk — Vehicle Service Marketplace",
     location: "Pune",
     period: "Jan 2025 – Present",
     isCurrent: true,
     highlights: [
-      "Develop secure, scalable APIs using Laravel and REST architecture",
-      "Implement real-time features with WebSockets and Laravel Broadcasting",
-      "Achieved 40% improvement in database query performance through optimization",
-      "Build microservices architecture for high-availability systems",
+      "Built scalable Laravel REST APIs, queue workflows, scheduled jobs and real-time notifications",
+      "Optimized queries, indexing, eager loading & media processing — improved API speed by up to 40%",
+      "Reduced media storage usage by 30–50% with automated image optimization workflows",
+      "Managed AWS and Ubuntu production deployments with Nginx, Apache, PHP-FPM and Redis",
     ],
   },
   {
     company: "Sarvacharya Education Pvt Ltd",
     role: "Senior Laravel Developer",
+    project: "3G Content ERP",
     location: "Pune",
     period: "Apr 2024 – Jan 2025",
     highlights: [
-      "Led development of enterprise web applications using Laravel 10+",
-      "Ensured cross-browser compatibility and responsive design",
-      "Collaborated with cross-functional teams for seamless delivery",
-      "Implemented complex business logic with clean code principles",
+      "Developed ERP modules for class scheduling, student management and attendance tracking",
+      "Built automated question paper generation with configurable templates",
+      "Improved performance and maintainability through query optimization and backend refactoring",
+      "Implemented GitHub Actions CI/CD workflows to automate deployments",
     ],
   },
   {
     company: "Paradiso Software Pvt Ltd",
     role: "Laravel Developer",
+    project: "CogniSpark AI — eLearning Authoring Platform",
     location: "Pune",
     period: "Mar 2023 – Apr 2024",
     highlights: [
-      "Built robust web applications with Laravel framework",
-      "Designed and implemented RESTful APIs for mobile integration",
-      "Optimized application performance and database queries",
-      "Participated in code reviews and mentoring junior developers",
+      "Built Laravel backend modules for an AI-powered eLearning authoring platform",
+      "Handled high-volume content workflows with efficient backend processing",
+      "Improved scalability through optimized database design and AWS-hosted production support",
+      "Collaborated with product and UI/UX teams on responsive authoring experiences",
     ],
   },
   {
     company: "Fyntune Solution Pvt Ltd",
     role: "PHP Developer",
+    project: "Fynity.in — Insurance Aggregation Platform",
     location: "Pune",
     period: "Jan 2021 – Feb 2023",
     highlights: [
-      "Developed REST APIs for web and mobile applications",
-      "Integrated payment gateways (Razorpay, PayU, Stripe)",
-      "Built third-party API integrations for external services",
-      "Maintained and enhanced existing PHP applications",
+      "Developed Laravel APIs with real-time quote generation and premium calculation workflows",
+      "Integrated payment gateways and REST/SOAP provider APIs across multiple insurers",
+      "Set up AWS services (EC2, RDS, S3) and GitHub Actions deployment pipelines",
+      "Collaborated on React.js frontend workflows for the aggregation portal",
     ],
   },
   {
     company: "Leanquality Solutions India Pvt Ltd",
     role: "Web Developer",
+    project: "Carselonadaily — Car Care & Detailing Platform",
     location: "Pune",
     period: "Jun 2019 – Dec 2020",
     highlights: [
-      "Developed applications using CodeIgniter and Laravel",
-      "Built Node.js applications with Sails.js framework",
-      "Created client-facing web solutions with modern UI/UX",
-      "Managed full development lifecycle from design to deployment",
+      "Developed and maintained Carselonadaily using Sails.js, Node.js and MySQL",
+      "Contributed across CodeIgniter and Laravel modules for service workflows",
+      "Refactored backend code and handled evolving client requirements",
+      "Managed AWS EC2 deployments for stable hosting and better maintainability",
     ],
   },
 ];
@@ -151,7 +156,10 @@ export const ExperienceTimeline = () => {
                 <h3 className="text-lg font-bold text-card-foreground">
                   {exp.role}
                 </h3>
-                <p className="text-primary font-medium mb-2">{exp.company}</p>
+                <p className="text-primary font-medium">{exp.company}</p>
+                {exp.project && (
+                  <p className="text-sm text-muted-foreground italic mb-2">{exp.project}</p>
+                )}
 
                 <div
                   className={`flex flex-wrap gap-3 text-sm text-muted-foreground mb-4 ${

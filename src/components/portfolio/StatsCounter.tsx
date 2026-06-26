@@ -3,10 +3,10 @@ import { useRef, useEffect, useState } from "react";
 import { Calendar, Briefcase, Building2, Wrench } from "lucide-react";
 
 const stats = [
-  { icon: Calendar, value: 6, suffix: "+", label: "Years Experience" },
-  { icon: Briefcase, value: 7, suffix: "+", label: "Major Projects" },
+  { icon: Calendar, value: 7, suffix: "+", label: "Years Experience" },
+  { icon: Briefcase, value: 9, suffix: "+", label: "Major Projects" },
   { icon: Building2, value: 5, suffix: "+", label: "Companies" },
-  { icon: Wrench, value: 15, suffix: "+", label: "Technologies" },
+  { icon: Wrench, value: 9, suffix: "+", label: "Open Source Packages" },
 ];
 
 interface CounterProps {
