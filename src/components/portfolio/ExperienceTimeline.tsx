@@ -156,7 +156,10 @@ export const ExperienceTimeline = () => {
                 <h3 className="text-lg font-bold text-card-foreground">
                   {exp.role}
                 </h3>
-                <p className="text-primary font-medium mb-2">{exp.company}</p>
+                <p className="text-primary font-medium">{exp.company}</p>
+                {exp.project && (
+                  <p className="text-sm text-muted-foreground italic mb-2">{exp.project}</p>
+                )}
 
                 <div
                   className={`flex flex-wrap gap-3 text-sm text-muted-foreground mb-4 ${
