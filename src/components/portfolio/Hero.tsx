@@ -82,11 +82,11 @@ export const Hero = () => {
           >
             <Typewriter
               words={[
-                "Senior Laravel Developer",
-                "System Architect",
-                "Cloud Solutions Expert",
-                "DevOps Engineer",
-                "Backend Specialist",
+                "Senior Backend Engineer",
+                "Laravel / PHP Specialist",
+                "API & Payments Architect",
+                "AWS & DevOps Engineer",
+                "Open Source Contributor",
               ]}
               typingSpeed={80}
               deletingSpeed={40}
@@ -101,12 +101,12 @@ export const Hero = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-lg md:text-xl text-hero-foreground/70 max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            Building Scalable Systems with{" "}
+            7+ years building scalable APIs and cloud-native backends with{" "}
             <span className="text-primary font-medium">Laravel</span>,{" "}
-            <span className="text-primary font-medium">Cloud</span> &{" "}
-            <span className="text-primary font-medium">DevOps</span>. 7+ years
-            crafting high-performance backend architectures and automating
-            deployments.
+            <span className="text-primary font-medium">Redis</span>,{" "}
+            <span className="text-primary font-medium">MySQL</span> &{" "}
+            <span className="text-primary font-medium">AWS</span> — plus 7+
+            published open-source Laravel packages.
           </motion.p>
 
           {/* CTA Buttons */}
