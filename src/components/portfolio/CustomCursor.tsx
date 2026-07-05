@@ -4,7 +4,6 @@ import { motion, useSpring, useMotionValue } from "framer-motion";
 export const CustomCursor = () => {
   const [isClicking, setIsClicking] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [hover, setHover] = useState<HoverState>({ active: false, label: "", rect: null });
 
   // Raw mouse position
   const mouseX = useMotionValue(-100);
