@@ -1,35 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { motion, useSpring, useMotionValue, useTransform } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
-
-type HoverState = {
-  active: boolean;
-  label: string;
-  rect: DOMRect | null;
-};
-
-const getCursorLabel = (el: HTMLElement): string => {
-  const explicit = el.closest<HTMLElement>("[data-cursor]");
-  if (explicit?.dataset.cursor) return explicit.dataset.cursor;
-
-  const anchor = el.closest("a");
-  if (anchor) {
-    const href = anchor.getAttribute("href") || "";
-    if (href.startsWith("mailto:")) return "Email";
-    if (href.startsWith("tel:")) return "Call";
-    if (anchor.target === "_blank" || /^https?:/i.test(href)) return "Open";
-    return "View";
-  }
-  const button = el.closest("button, [role='button']");
-  if (button) {
-    const aria = button.getAttribute("aria-label");
-    if (aria && aria.length <= 12) return aria;
-    const txt = (button.textContent || "").trim();
-    if (txt && txt.length <= 12) return txt;
-    return "Click";
-  }
-  return "";
-};
+import { useEffect, useState } from "react";
+import { motion, useSpring, useMotionValue } from "framer-motion";
 
 export const CustomCursor = () => {
   const [isClicking, setIsClicking] = useState(false);
