@@ -21,9 +21,6 @@ export const CustomCursor = () => {
   const ringXSpring = useSpring(dotX, { damping: 22, stiffness: 350, mass: 0.4 });
   const ringYSpring = useSpring(dotY, { damping: 22, stiffness: 350, mass: 0.4 });
 
-  const hoverRef = useRef<HoverState>(hover);
-  hoverRef.current = hover;
-
   useEffect(() => {
     if (typeof window === "undefined") return;
     const hasMousePointer = window.matchMedia("(pointer: fine)").matches;
@@ -76,23 +73,14 @@ export const CustomCursor = () => {
         const rect = target.getBoundingClientRect();
         const cx = rect.left + rect.width / 2;
         const cy = rect.top + rect.height / 2;
-        // Magnetic pull toward center (30% pull)
+        // Magnetic pull toward center (25% pull)
         const px = e.clientX + (cx - e.clientX) * 0.25;
         const py = e.clientY + (cy - e.clientY) * 0.25;
         dotX.set(px);
         dotY.set(py);
-
-        const label = getCursorLabel(target);
-        const prev = hoverRef.current;
-        if (!prev.active || prev.label !== label) {
-          setHover({ active: true, label, rect });
-        }
       } else {
         dotX.set(e.clientX);
         dotY.set(e.clientY);
-        if (hoverRef.current.active) {
-          setHover({ active: false, label: "", rect: null });
-        }
       }
     };
 
@@ -120,9 +108,6 @@ export const CustomCursor = () => {
     return null;
   }
 
-  const isHovering = hover.active;
-  const showLabel = isHovering && hover.label.length > 0;
-
   return (
     <>
       {/* Center dot */}
@@ -130,7 +115,7 @@ export const CustomCursor = () => {
         className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
         style={{ x: dotXSpring, y: dotYSpring }}
         animate={{
-          opacity: isVisible ? (isHovering ? 0 : 1) : 0,
+          opacity: isVisible ? 1 : 0,
           scale: isClicking ? 0.6 : 1,
         }}
         transition={{ duration: 0.15 }}
@@ -140,7 +125,7 @@ export const CustomCursor = () => {
         </div>
       </motion.div>
 
-      {/* Expanding ring / label pill */}
+      {/* Expanding ring */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9998]"
         style={{ x: ringXSpring, y: ringYSpring }}
@@ -151,32 +136,13 @@ export const CustomCursor = () => {
         transition={{ type: "spring", stiffness: 400, damping: 28 }}
       >
         <motion.div
-          className="relative -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rounded-full border border-primary/60 bg-primary/10 backdrop-blur-sm text-primary font-medium text-xs"
+          className="relative -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/60 bg-primary/10 backdrop-blur-sm"
           animate={{
-            width: showLabel ? "auto" : isHovering ? 44 : 34,
-            height: showLabel ? 32 : isHovering ? 44 : 34,
-            paddingLeft: showLabel ? 14 : 0,
-            paddingRight: showLabel ? 14 : 0,
-            backgroundColor: isHovering
-              ? "hsl(var(--primary) / 0.15)"
-              : "hsl(var(--primary) / 0.05)",
+            width: 34,
+            height: 34,
           }}
           transition={{ type: "spring", stiffness: 350, damping: 26 }}
-        >
-          {showLabel ? (
-            <motion.span
-              key={hover.label}
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -4 }}
-              transition={{ duration: 0.15 }}
-              className="whitespace-nowrap flex items-center gap-1 tracking-wide uppercase"
-            >
-              {hover.label}
-              <ArrowUpRight className="w-3 h-3" />
-            </motion.span>
-          ) : null}
-        </motion.div>
+        />
       </motion.div>
 
       <style>{`
