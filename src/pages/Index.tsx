@@ -6,6 +6,7 @@ import { ScrollReveal } from "@/components/portfolio/ScrollReveal";
 import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
 // Below-the-fold sections — code-split to shrink initial JS bundle
 const CoreExpertise = lazy(() => import("@/components/portfolio/CoreExpertise").then(m => ({ default: m.CoreExpertise })));
@@ -24,6 +25,7 @@ const BackToTop = lazy(() => import("@/components/portfolio/BackToTop").then(m =
 const SectionFallback = () => <div className="min-h-[200px]" />;
 
 const Index = () => {
+  const location = useLocation();
   // Skip preloader on repeat visits in the same session for faster LCP
   const initiallySkipped = typeof window !== "undefined" && sessionStorage.getItem("preloaderShown") === "1";
   const [isLoading, setIsLoading] = useState(!initiallySkipped);
@@ -47,6 +49,32 @@ const Index = () => {
       if (cancel) cancel(id as number);
     };
   }, [isLoading, loadDeferred]);
+
+  useEffect(() => {
+    if (isLoading || !location.hash) return;
+
+    const targetId = location.hash.slice(1);
+    let attempts = 0;
+    let timeoutId: number | undefined;
+
+    const scrollToHash = () => {
+      const target = document.getElementById(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      if (attempts < 20) {
+        attempts += 1;
+        timeoutId = window.setTimeout(scrollToHash, 100);
+      }
+    };
+
+    timeoutId = window.setTimeout(scrollToHash, 0);
+    return () => {
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+    };
+  }, [isLoading, location.hash]);
 
   return (
     <>

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Heart, ArrowUp, Github, Linkedin, Instagram, Twitter, Mail, Phone } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const socialLinks = [
   { icon: Github, href: "https://github.com/codersandip", label: "GitHub" },
@@ -9,8 +10,20 @@ const socialLinks = [
 ];
 
 export const Footer = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const scrollToSection = (href: string) => {
+    if (location.pathname !== "/") {
+      navigate(`/${href}`);
+      return;
+    }
+
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -34,13 +47,27 @@ export const Footer = () => {
           <div>
             <h4 className="font-semibold text-foreground mb-3">Quick Links</h4>
             <nav className="flex flex-col gap-2 text-sm text-muted-foreground">
-              <a href="#about" className="hover:text-primary transition-colors">About</a>
-              <a href="#expertise" className="hover:text-primary transition-colors">Expertise</a>
-              <a href="#skills" className="hover:text-primary transition-colors">Skills</a>
-              <a href="#experience" className="hover:text-primary transition-colors">Experience</a>
-              <a href="#projects" className="hover:text-primary transition-colors">Projects</a>
-              <a href="#opensource" className="hover:text-primary transition-colors">Open Source</a>
-              <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
+              {[
+                ["About", "#about"],
+                ["Expertise", "#expertise"],
+                ["Skills", "#skills"],
+                ["Experience", "#experience"],
+                ["Projects", "#projects"],
+                ["Open Source", "#opensource"],
+                ["Contact", "#contact"],
+              ].map(([label, href]) => (
+                <a
+                  key={href}
+                  href={href}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    scrollToSection(href);
+                  }}
+                  className="hover:text-primary transition-colors"
+                >
+                  {label}
+                </a>
+              ))}
             </nav>
           </div>
 
